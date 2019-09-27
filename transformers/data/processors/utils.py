@@ -18,6 +18,7 @@ import csv
 import sys
 import copy
 import json
+import pandas as pd
 
 class InputExample(object):
     """
@@ -109,3 +110,7 @@ class DataProcessor(object):
                     line = list(unicode(cell, 'utf-8') for cell in line)
                 lines.append(line)
             return lines
+
+    @classmethod
+    def _read_parquet(cls, input_file):
+        return pd.read_parquet(input_file)
