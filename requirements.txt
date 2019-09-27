@@ -10,3 +10,7 @@ regex
 sentencepiece
 # For XLM
 sacremoses
+# For reading parquet data files
+pandas
+pyarrow
+fastparquet
