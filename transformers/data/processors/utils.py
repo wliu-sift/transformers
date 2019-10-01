@@ -18,6 +18,7 @@ import csv
 import sys
 import copy
 import json
+import pandas as pd
 
 class InputExample(object):
     """
@@ -109,3 +110,5 @@ class DataProcessor(object):
                     line = list(unicode(cell, 'utf-8') for cell in line)
                 lines.append(line)
             return lines
+
+    @classmethod

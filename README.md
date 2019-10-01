@@ -1,3 +1,30 @@
+# This is a forked repo from `huggingface/transformers` for running BERT-related models on SIFT Data
+The original Readme from `huggingface` is kept at the end.
+
+## Basic setup
+At the time of writting this doc, we are still using an adhoc AWS GPU instance for most of the
+prototyping work.
+
+### Start & access Jupyter notebook on the prototype host
+```
+Host prototype
+     HostName 10.0.15.81
+     User ubuntu
+     StrictHostKeyChecking no
+     UserKnownHostsFile /dev/null
+     ForwardAgent yes
+     IdentityFile ~/embedding-hack.pem
+```
+
+On your localbox, execute the following command to establish ssh tunnel, so
+you can use the remote notebook server from your local browser. *Keep the console terminal
+running or otherwise you will lose the connection*
+```
+ssh -i "embedding-hack.pem" -N -L 7777:localhost:7777 ubuntu@prototype
+```
+
+# Original README.md from `huggingface`
+
 <p align="center">
     <br>
     <img src="https://raw.githubusercontent.com/huggingface/transformers/master/docs/source/imgs/transformers_logo_name.png" width="400"/>

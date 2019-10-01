@@ -289,6 +289,33 @@ class Sst2Processor(DataProcessor):
                 InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
         return examples
 
+class SiftProcessor(DataProcessor):
+    """Processor for Sift text classification data set."""
+
+    def get_train_examples(self, data_dir):
+        """See base class."""
+        return self._create_examples(
+            self._read_parquet(os.path.join(data_dir, "train.parquet")), "train")
+
+    def get_dev_examples(self, data_dir):
+        """See base class."""
+        return self._create_examples(
+            self._read_parquet(os.path.join(data_dir, "dev.parquet")), "dev")
+
+    def get_labels(self):
+        """See base class."""
+        return ["0", "1"]
+
+    def _create_examples(self, df, set_type):
+        """Creates examples for the training and dev sets."""
+        examples = []
+        for i, row in df.iterrows():
+            guid = "%s-%s" % (set_type, i)
+            text_a = row['text']
+            label = row['label']
+            examples.append(
+                InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
+        return examples
 
 class StsbProcessor(DataProcessor):
     """Processor for the STS-B data set (GLUE version)."""
@@ -458,6 +485,7 @@ glue_tasks_num_labels = {
     "mnli": 3,
     "mrpc": 2,
     "sst-2": 2,
+    "sift": 2,
     "sts-b": 1,
     "qqp": 2,
     "qnli": 2,
@@ -471,6 +499,7 @@ glue_processors = {
     "mnli-mm": MnliMismatchedProcessor,
     "mrpc": MrpcProcessor,
     "sst-2": Sst2Processor,
+    "sift": SiftProcessor,
     "sts-b": StsbProcessor,
     "qqp": QqpProcessor,
     "qnli": QnliProcessor,
@@ -484,6 +513,7 @@ glue_output_modes = {
     "mnli-mm": "classification",
     "mrpc": "classification",
     "sst-2": "classification",
+    "sift": "classification",
     "sts-b": "regression",
     "qqp": "classification",
     "qnli": "classification",
